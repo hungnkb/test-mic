@@ -1,19 +1,18 @@
 import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
-import { MessagePattern } from '@nestjs/microservices';
+import {AppService, LoginDto} from './app.service';
+import { EventPattern, MessagePattern } from '@nestjs/microservices';
 
-@Controller('subscribers')
+@Controller('/')
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @MessagePattern('auth-login')
+  test(data: LoginDto) {
+    return this.appService.login(data);
   }
 
-  @Get('/get-subscribers')
-  @MessagePattern({ cmd: 'get-subscribers' })
-  test() {
-    return 123;
+  @EventPattern('get-auth1')
+  test2(data: LoginDto) {
+    return this.appService.login(data);
   }
 }

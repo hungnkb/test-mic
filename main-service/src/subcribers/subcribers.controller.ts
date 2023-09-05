@@ -6,7 +6,7 @@ export class AppController {
   constructor() {}
 
   @Get('/')
-  @MessagePattern({ cmd: 'get-subscribers' })
+  @MessagePattern({ cmd: 'get-auth' })
   getHello(): string {
     console.log(123);
     return 'hello';
